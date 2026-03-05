@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkOrderPack",
+  "type": "object",
+  "required": [
+    "incident_summary",
+    "asset",
+    "suspected_part",
+    "alternatives",
+    "recommended_action",
+    "manufacturing_feasibility",
+    "lead_time_estimate_days",
+    "cost_estimate_aed",
+    "co2_impact_estimate",
+    "risk_flags",
+    "citations",
+    "next_steps_by_team"
+  ],
+  "properties": {
+    "incident_summary": {"type": "string"},
+    "asset": {"type": "string"},
+    "suspected_part": {"type": "string"},
+    "alternatives": {"type": "array", "items": {"type": "string"}},
+    "recommended_action": {
+      "type": "string",
+      "enum": ["DIGITIZE", "SCAN", "REVERSE_ENGINEER", "PRINT", "SOURCE"]
+    },
+    "manufacturing_feasibility": {
+      "type": "object",
+      "required": ["is_printable", "material", "notes"],
+      "properties": {
+        "is_printable": {"type": "boolean"},
+        "material": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    },
+    "lead_time_estimate_days": {"type": "number"},
+    "cost_estimate_aed": {"type": "number"},
+    "co2_impact_estimate": {"type": "string"},
+    "risk_flags": {"type": "array", "items": {"type": "string"}},
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["doc", "chunk_id", "snippet"],
+        "properties": {
+          "doc": {"type": "string"},
+          "chunk_id": {"type": "string"},
+          "snippet": {"type": "string"}
+        }
+      }
+    },
+    "next_steps_by_team": {
+      "type": "object",
+      "required": ["scanning", "engineering", "qa", "production", "supply_chain"],
+      "properties": {
+        "scanning": {"type": "array", "items": {"type": "string"}},
+        "engineering": {"type": "array", "items": {"type": "string"}},
+        "qa": {"type": "array", "items": {"type": "string"}},
+        "production": {"type": "array", "items": {"type": "string"}},
+        "supply_chain": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
